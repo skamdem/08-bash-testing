@@ -12,8 +12,9 @@ terraform apply -auto-approve
 sleep 60
 
 # query the output, extract ip and make request
+# curl: -m, --max-time <seconds> Maximum time allowed for the transfer
 terraform output -json |\
-jq -r '.instance_ip_addr' |\
+jq -r '.ip_addr.value' |\
 xargs -I {} curl http://{}:8080 -m 10
 
 # cleanup because resources at this point

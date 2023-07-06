@@ -22,6 +22,10 @@ module "say_hello" {
   instance_ami_id = data.aws_ami.ami.image_id
 }
 
+output "ip_addr" {
+  value = module.say_hello.server_public_ip
+}
+
 output "url" {
   value = "http://${module.say_hello.server_public_ip}:8080"
 }
