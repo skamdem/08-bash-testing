@@ -15,7 +15,9 @@ sleep 60
 # curl: -m, --max-time <seconds> Maximum time allowed for the transfer
 terraform output -json |\
 jq -r '.ip_addr.value' |\
-xargs -I {} curl http://{}:8080 -m 10
+# xargs -I {} curl http://{}:8080 -m 10
+# amended below to work on Windows "git bash"
+xargs -I {} echo "curl http://{}:8080 -s -m 10" | sh
 
 # cleanup because resources at this point
 terraform destroy -auto-approve
